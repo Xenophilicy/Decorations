@@ -9,5 +9,5 @@ projects:
     path: ""
     libs:
       - src: BreathTakinglyBinary/libDynamicForms/libDynamicForms
-        version: 1.1.2
+        version: ^1.1.2
 ...
