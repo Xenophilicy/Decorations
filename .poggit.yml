@@ -5,9 +5,9 @@ branches:
 projects:
   Decorations:
     lint:
-      phpstan: false
+      phpstan:
     path: ""
     libs:
-      - src: BreathTakinglyBinary/libDynamicForms/
+      - src: BreathTakinglyBinary/libDynamicForms/libDynamicForms
         version: 1.1.2
 ...
