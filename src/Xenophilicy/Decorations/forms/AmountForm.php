@@ -16,20 +16,27 @@
 namespace Xenophilicy\Decorations\forms;
 
 use pocketmine\Player;
+use pocketmine\utils\TextFormat as TF;
+use Xenophilicy\Decorations\decoration\Decoration;
+use Xenophilicy\Decorations\libs\BreathTakinglyBinary\libDynamicForms\CustomForm;
 use Xenophilicy\Decorations\libs\BreathTakinglyBinary\libDynamicForms\Form;
-use Xenophilicy\Decorations\libs\BreathTakinglyBinary\libDynamicForms\SimpleForm;
 
 /**
- * Class AlertForm
+ * Class AmountForm
  * @package Xenophilicy\Decorations\forms
  */
-class AlertForm extends SimpleForm implements FormConstants {
+class AmountForm extends CustomForm implements FormConstants {
     
-    public function __construct(string $text, Form $previousForm = null){
+    /** @var Decoration */
+    private $decoration;
+    
+    public function __construct(Decoration $decoration, int $limit, Form $previousForm){
+        $this->decoration = $decoration;
         parent::__construct(self::TITLE, $previousForm);
-        $this->setContent($text);
-        $button = is_null($previousForm) ? self::CLOSE_TEXT : self::BACK_TEXT;
-        $this->addButton($button, self::CLOSE);
+        $this->addLabel(TF::LIGHT_PURPLE . "How many do you want?");
+        $this->addSlider(TF::BLUE . "Amount", 1, $limit, self::AMOUNT);
+        $this->addLabel(TF::LIGHT_PURPLE . "Where do you want it?");
+        $this->addDropdown(TF::BLUE . "Location", self::LOCATION, [TF::GOLD . "Archive", TF::GOLD . "Inventory"]);
     }
     
     /**
@@ -39,8 +46,7 @@ class AlertForm extends SimpleForm implements FormConstants {
      * @param        $data
      */
     public function onResponse(Player $player, $data): void{
-        if(is_null($this->getPreviousForm())) return;
-        $form = $this->getPreviousForm();
+        $form = new ConfirmPurchaseForm($this->decoration, $data[self::AMOUNT], $data[self::LOCATION], $this);
         $player->sendForm($form);
     }
 }

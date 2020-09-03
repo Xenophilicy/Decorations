@@ -15,10 +15,10 @@
 
 namespace Xenophilicy\Decorations\forms;
 
-use BreathTakinglyBinary\libDynamicForms\SimpleForm;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat as TF;
 use Xenophilicy\Decorations\Decorations;
+use Xenophilicy\Decorations\libs\BreathTakinglyBinary\libDynamicForms\SimpleForm;
 
 /**
  * Class MainForm
@@ -46,6 +46,13 @@ class MainForm extends SimpleForm implements FormConstants {
                 $form = new ShopForm($this);
                 break;
             case self::MANAGE:
+                $archive = Decorations::getInstance()->getArchiveManager()->getArchive($player->getName());
+                $stored = $archive->getAllStored();
+                if(count($stored) === 0){
+                    $form = new AlertForm(TF::RED . "You don't have any archived decorations to view", $this);
+                }else{
+                    $form = new ArchiveListForm($player, $this);
+                }
                 break;
             default:
                 return;

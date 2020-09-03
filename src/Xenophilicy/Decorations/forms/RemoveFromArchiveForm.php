@@ -17,30 +17,26 @@ namespace Xenophilicy\Decorations\forms;
 
 use pocketmine\Player;
 use pocketmine\utils\TextFormat as TF;
-use Xenophilicy\Decorations\decoration\DecorationCategory;
+use Xenophilicy\Decorations\archive\ArchiveEntry;
 use Xenophilicy\Decorations\Decorations;
+use Xenophilicy\Decorations\libs\BreathTakinglyBinary\libDynamicForms\CustomForm;
 use Xenophilicy\Decorations\libs\BreathTakinglyBinary\libDynamicForms\Form;
-use Xenophilicy\Decorations\libs\BreathTakinglyBinary\libDynamicForms\SimpleForm;
 
 /**
- * Class ListDecorationsForm
+ * Class RemoveFromArchiveForm
  * @package Xenophilicy\Decorations\forms
  */
-class ListDecorationsForm extends SimpleForm implements FormConstants {
+class RemoveFromArchiveForm extends CustomForm implements FormConstants {
     
-    /** @var DecorationCategory */
-    private $category;
+    /** @var ArchiveEntry */
+    private $entry;
     
-    public function __construct(DecorationCategory $category, Form $previousForm){
-        $this->category = $category;
+    public function __construct(ArchiveEntry $entry, Form $previousForm){
+        $this->entry = $entry;
         parent::__construct(self::TITLE, $previousForm);
-        $this->setContent(TF::LIGHT_PURPLE . "Select a decoration to view");
-        foreach($category->getAllDecorations() as $id => $decoration){
-            $unit = Decorations::getInstance()->getEconomy()->getMonetaryUnit();
-            $price = $decoration->getPrice() > 0 ? $decoration->getPrice() : "FREE";
-            $this->addButton(TF::DARK_AQUA . $decoration->getFormat() . TF::GRAY . " | " . TF::DARK_GREEN . $unit . $price, $id);
-        }
-        $this->addButton(self::BACK_TEXT, self::BACK);
+        $this->addLabel(TF::LIGHT_PURPLE . "How many of this decoration would you like to move from your archive to your inventory?");
+        $limit = $entry->getStored();
+        $this->addSlider(TF::BLUE . "Amount", 1, $limit, self::AMOUNT);
     }
     
     /**
@@ -50,19 +46,12 @@ class ListDecorationsForm extends SimpleForm implements FormConstants {
      * @param        $data
      */
     public function onResponse(Player $player, $data): void{
-        if($data === self::BACK){
-            $form = $this->getPreviousForm();
-        }else{
-            $decoration = $this->category->getDecoration($data);
-            $archive = Decorations::getInstance()->getArchiveManager()->getArchive($player->getName());
-            $owned = $archive->getTotalOwned($decoration->getId());
-            $limit = ($decoration->getPlayerLimit() ?? 64) - $owned;
-            if($limit === 0){
-                $form = new AlertForm(TF::RED . "You already have the maximum allowed amount of this decoration. You cannot purchase any more until you remove some or sell some from your archive", $this);
-            }else{
-                $form = new AmountForm($decoration, $limit, $this);
-            }
-        }
+        $amount = $data[self::AMOUNT];
+        $item = $this->entry->getDecoration()->convertToItem($amount);
+        $player->getInventory()->canAddItem($item) ? $player->getInventory()->addItem($item) : $player->dropItem($item);
+        Decorations::getInstance()->getArchiveManager()->getArchive($player->getName())->removeStored($this->entry->getDecoration()->getId(), $amount);
+        $form = new AlertForm(TF::GREEN . "You moved " . TF::AQUA . $amount . "x " . $this->entry->getDecoration()->getFormat() . TF::GREEN . " to your inventory", new
+        ArchiveListForm($player, new MainForm()));
         $player->sendForm($form);
     }
 }

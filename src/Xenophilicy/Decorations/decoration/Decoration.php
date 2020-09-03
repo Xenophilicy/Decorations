@@ -15,9 +15,14 @@
 
 namespace Xenophilicy\Decorations\decoration;
 
+use pocketmine\block\Block;
 use pocketmine\entity\Entity;
 use pocketmine\entity\Skin;
+use pocketmine\item\enchantment\Enchantment;
+use pocketmine\item\enchantment\EnchantmentInstance;
+use pocketmine\item\Item;
 use pocketmine\Player;
+use pocketmine\utils\TextFormat as TF;
 use Xenophilicy\Decorations\Decorations;
 use Xenophilicy\Decorations\entity\DecorationEntity;
 
@@ -26,8 +31,6 @@ use Xenophilicy\Decorations\entity\DecorationEntity;
  * @package Xenophilicy\Decorations\decoration
  */
 class Decoration {
-    
-    const DECO_ID = "decoID";
     
     /** @var DecorationCategory */
     private $category;
@@ -63,16 +66,8 @@ class Decoration {
         return $this->limit;
     }
     
-    public function getFormat(): string{
-        return $this->format;
-    }
-    
     public function getCategory(): DecorationCategory{
         return $this->category;
-    }
-    
-    public function getScale(): float{
-        return $this->scale;
     }
     
     public function getPrice(): int{
@@ -102,23 +97,47 @@ class Decoration {
         return true;
     }
     
-    public function spawn(Player $player): ?Entity{
-        $nbt = Entity::createBaseNBT($player, null, $player->getYaw(), $player->getPitch());
-        $nbt->setString(self::DECO_ID, $this->getId());
+    public function convertToItem(int $amount): Item{
+        $item = Item::get(Item::BED, 0, $amount);
+        $item->setCustomName($this->getFormat());
+        $enchant = new EnchantmentInstance(new Enchantment(105, "Decoration", 0, 0, 0, 1), 1);
+        $item->setLore([TF::AQUA . "Tap the ground to place me"]);
+        $item->addEnchantment($enchant);
+        $item->getNamedTag()->setString(DecorationEntity::DECO_ID, $this->getId());
+        return $item;
+    }
+    
+    public function getFormat(): string{
+        return $this->format;
+    }
+    
+    public function getId(): string{
+        return $this->id;
+    }
+    
+    public function spawn(Player $player, Block $block): ?Entity{
+        Decorations::getInstance()->getArchiveManager()->getArchive($player->getName())->addSpawned($this->getId(), 1);
+        $nbt = Entity::createBaseNBT($block->ceil()->add(.5, 1, .5));
+        $nbt->setString(DecorationEntity::DECO_ID, $this->getId());
+        $nbt->setString(DecorationEntity::OWNER, $player->getName());
         $player->saveNBT();
         $skinTag = $player->namedtag->getCompoundTag("Skin");
         assert($skinTag !== null);
         $nbt->setTag($skinTag);
         /** @var DecorationEntity $entity */
-        $entity = Entity::createEntity("DecorationEntity", $player->getLevel(), $nbt);
+        $entity = Entity::createEntity("Decoration", $block->getLevel(), $nbt);
+        $entity->getDataPropertyManager()->setFloat(Entity::DATA_SCALE, $this->getScale());
         $entity->setSkin(new Skin("Decorations", $this->skinData[0], "", $this->model["identifier"], $this->skinData[1]));
         $entity->sendSkin();
+        $entity->setImmobile(true);
         if(!is_null($this->nametag)) $entity->setNameTag($this->nametag);
+        $entity->saveNBT();
         $entity->spawnToAll();
+        $entity->sendData($entity->getViewers());
         return $entity;
     }
     
-    public function getId(): string{
-        return $this->id;
+    public function getScale(): float{
+        return $this->scale;
     }
 }

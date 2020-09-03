@@ -15,11 +15,11 @@
 
 namespace Xenophilicy\Decorations\forms;
 
-use BreathTakinglyBinary\libDynamicForms\Form;
-use BreathTakinglyBinary\libDynamicForms\SimpleForm;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat as TF;
 use Xenophilicy\Decorations\Decorations;
+use Xenophilicy\Decorations\libs\BreathTakinglyBinary\libDynamicForms\Form;
+use Xenophilicy\Decorations\libs\BreathTakinglyBinary\libDynamicForms\SimpleForm;
 
 /**
  * Class ShopForm

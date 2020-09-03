@@ -34,4 +34,10 @@ interface FormConstants {
     const MANAGE = "manage";
     
     const AMOUNT = "amount";
+    const LOCATION = "location";
+    
+    const ARCHIVE = "archive";
+    const SELL = "sell";
+    const SPAWN = "spawn";
+    const PICKUP = "pickup";
 }

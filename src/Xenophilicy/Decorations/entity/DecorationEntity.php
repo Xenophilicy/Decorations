@@ -27,11 +27,18 @@ use Xenophilicy\Decorations\Decorations;
  */
 class DecorationEntity extends Human {
     
+    const DECO_ID = "decoID";
+    const OWNER = "owner";
+    
     public function __construct(Level $level, CompoundTag $nbt){
         parent::__construct($level, $nbt);
     }
     
+    public function getOwner(): string{
+        return $this->namedtag->getString(self::OWNER);
+    }
+    
     public function getDecoration(): Decoration{
-        return Decorations::getInstance()->getDecorationManager()->getDecoration($this->namedtag->getString(Decoration::DECO_ID));
+        return Decorations::getInstance()->getDecorationManager()->getDecoration($this->namedtag->getString(self::DECO_ID));
     }
 }

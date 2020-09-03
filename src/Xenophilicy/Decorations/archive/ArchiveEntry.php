@@ -13,34 +13,46 @@
 #                                         $$ |                                      $$    $$/
 #                                         $$/                                        $$$$$$/
 
-namespace Xenophilicy\Decorations\forms;
+namespace Xenophilicy\Decorations\archive;
 
-use pocketmine\Player;
-use Xenophilicy\Decorations\libs\BreathTakinglyBinary\libDynamicForms\Form;
-use Xenophilicy\Decorations\libs\BreathTakinglyBinary\libDynamicForms\SimpleForm;
+use Xenophilicy\Decorations\decoration\Decoration;
 
 /**
- * Class AlertForm
- * @package Xenophilicy\Decorations\forms
+ * Class ArchiveEntry
+ * @package Xenophilicy\Decorations\decoration
  */
-class AlertForm extends SimpleForm implements FormConstants {
+class ArchiveEntry {
     
-    public function __construct(string $text, Form $previousForm = null){
-        parent::__construct(self::TITLE, $previousForm);
-        $this->setContent($text);
-        $button = is_null($previousForm) ? self::CLOSE_TEXT : self::BACK_TEXT;
-        $this->addButton($button, self::CLOSE);
+    /** @var Decoration */
+    private $decoration;
+    /**@var int */
+    private $stored;
+    /**@var int */
+    private $spawned;
+    
+    public function __construct(Decoration $decoration, int $spawned, int $stored){
+        $this->decoration = $decoration;
+        $this->stored = $stored;
+        $this->spawned = $spawned;
     }
     
-    /**
-     * Children classes should implement this method to properly
-     * deal with non-null player responses.
-     * @param Player $player
-     * @param        $data
-     */
-    public function onResponse(Player $player, $data): void{
-        if(is_null($this->getPreviousForm())) return;
-        $form = $this->getPreviousForm();
-        $player->sendForm($form);
+    public function getDecoration(): Decoration{
+        return $this->decoration;
+    }
+    
+    public function getSpawned(): int{
+        return $this->spawned;
+    }
+    
+    public function setSpawned(int $count): void{
+        $this->spawned = $count;
+    }
+    
+    public function getStored(): int{
+        return $this->stored;
+    }
+    
+    public function setStored(int $count): void{
+        $this->stored = $count;
     }
 }

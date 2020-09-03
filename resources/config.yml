@@ -19,7 +19,3 @@ sell-percentage: 50
 
 # Show or hide the shop in the decoration menu
 enable-shop: true
-
-# Maximum amount of archived decorations per player
-# Set this to 0 for no limit
-max-archives: 10
