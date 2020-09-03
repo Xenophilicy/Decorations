@@ -1,0 +1,49 @@
+{
+  "dishes": {
+    "format": "§dDishes",
+    "entities": [
+      {
+        "id": "mug",
+        "model": {
+          "geometry": "mug.geo.json",
+          "identifier": "geometry.mug",
+          "texture": "mug.png"
+        },
+        "scale": 0.2,
+        "format": "§6Coffee mug",
+        "price": 20,
+        "limit": 3,
+        "nametag": "§bDrink me!"
+      }
+    ]
+  },
+  "furniture": {
+    "format": "§eFurniture",
+    "entities": [
+      {
+        "id": "tv",
+        "model": {
+          "geometry": "television.geo.json",
+          "identifier": "geometry.television",
+          "texture": "television.png"
+        },
+        "scale": 1,
+        "format": "§7CRT Television",
+        "price": 120,
+        "limit": 1
+      },
+      {
+        "id": "chair",
+        "model": {
+          "geometry": "chair.geo.json",
+          "identifier": "geometry.chair",
+          "texture": "chair.png"
+        },
+        "scale": 1,
+        "format": "§cRocking chair",
+        "price": 65,
+        "limit": 1
+      }
+    ]
+  }
+}

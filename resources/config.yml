@@ -1,0 +1,25 @@
+# MADE BY:
+#  __    __                                          __        __  __  __
+# /  |  /  |                                        /  |      /  |/  |/  |
+# $$ |  $$ |  ______   _______    ______    ______  $$ |____  $$/ $$ |$$/   _______  __    __
+# $$  \/$$/  /      \ /       \  /      \  /      \ $$      \ /  |$$ |/  | /       |/  |  /  |
+#  $$  $$<  /$$$$$$  |$$$$$$$  |/$$$$$$  |/$$$$$$  |$$$$$$$  |$$ |$$ |$$ |/$$$$$$$/ $$ |  $$ |
+#   $$$$  \ $$    $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |$$ |$$ |$$ |      $$ |  $$ |
+#  $$ /$$  |$$$$$$$$/ $$ |  $$ |$$ \__$$ |$$ |__$$ |$$ |  $$ |$$ |$$ |$$ |$$ \_____ $$ \__$$ |
+# $$ |  $$ |$$       |$$ |  $$ |$$    $$/ $$    $$/ $$ |  $$ |$$ |$$ |$$ |$$       |$$    $$ |
+# $$/   $$/  $$$$$$$/ $$/   $$/  $$$$$$/  $$$$$$$/  $$/   $$/ $$/ $$/ $$/  $$$$$$$/  $$$$$$$ |
+#                                         $$ |                                      /  \__$$ |
+#                                         $$ |                                      $$    $$/
+#                                         $$/                                        $$$$$$/
+VERSION: "1.0.0" # Internal use only
+
+# This is the percent of the original price a player should get back when selling a decoration
+# Set this to 0 for no money back
+sell-percentage: 50
+
+# Show or hide the shop in the decoration menu
+enable-shop: true
+
+# Maximum amount of archived decorations per player
+# Set this to 0 for no limit
+max-archives: 10

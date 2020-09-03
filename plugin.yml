@@ -1,0 +1,11 @@
+name: Decorations
+main: Xenophilicy\Decorations\Decorations
+version: 1.0.0
+api: 3.0.0
+author: Xenophilicy
+  - EconomyAPI
+permissions:
+  decorations:
+    children:
+      decorations.menu:
+        default: true
