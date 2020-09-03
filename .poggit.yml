@@ -1,0 +1,11 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/Xenophilicy/Decorations
+build-by-default: true
+branches:
+- master
+projects:
+  Decorations:
+    path: ""
+    libs:
+      - src: BreathTakinglyBinary\libDynamicForms/
+        version: 1.1.2
+...
