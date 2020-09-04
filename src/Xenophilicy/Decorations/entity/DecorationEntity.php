@@ -27,10 +27,9 @@ use Xenophilicy\Decorations\Decorations;
  */
 class DecorationEntity extends Human {
     
-    protected $gravity = 0;
-    
     const DECO_ID = "decoID";
     const OWNER = "owner";
+    protected $gravity = 0;
     
     public function __construct(Level $level, CompoundTag $nbt){
         parent::__construct($level, $nbt);

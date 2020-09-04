@@ -63,6 +63,7 @@ class SettingsForm extends SimpleForm implements FormConstants {
                 break;
             case self::ARCHIVE:
                 $this->entity->flagForDespawn();
+                Decorations::getInstance()->getArchiveManager()->getArchive($player->getName())->removeSpawned($this->decoration->getId(), 1);
                 Decorations::getInstance()->getArchiveManager()->getArchive($player->getName())->addStored($this->decoration->getId(), 1);
                 $form = new AlertForm(TF::GREEN . "Decoration has been added to your archive");
                 break;
