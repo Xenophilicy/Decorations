@@ -12,11 +12,8 @@ With this plugin you can allow your players to purchase and spawn in custom geom
 
 ***
 
-### Command
-Use `/deco` to access the main interface
-
 ### Usage
-From there you can enter the shop or view your `archived decorations`. By selecting an item in your `archive`, you have the option to sell or spawn the decoration. In the shop, you can select what category you'd like to browse. Once you pick a category, choose an item to purchase and proceed to the pre-purchase form. The pre-purchase form is where you can choose how many to buy, but also choose where you'd like the item to be exported to once you purchase it (inventory or `decoration archive`). Once bought, you can spawn it by tapping the item on the block of where you want it to be. You have the ability, as the decoration owner, to view the decoration options by hitting it. This screen allows you to sell, `archive`, and pick up the decoration for easier transport or movement adjustments.
+Use `/deco` to access the main interface. From there you can enter the shop or view your `archived decorations`. By selecting an item in your `archive`, you have the option to sell or spawn the decoration. In the shop, you can select what category you'd like to browse. Once you pick a category, choose an item to purchase and proceed to the pre-purchase form. The pre-purchase form is where you can choose how many to buy, but also choose where you'd like the item to be exported to once you purchase it (inventory or `decoration archive`). Once bought, you can spawn it by tapping the item on the block of where you want it to be. You have the ability, as the decoration owner, to view the decoration options by hitting it. This screen allows you to sell, `archive`, and pick up the decoration for easier transport or movement adjustments.
 
 ***
 
