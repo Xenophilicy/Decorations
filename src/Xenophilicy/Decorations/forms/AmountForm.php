@@ -36,7 +36,7 @@ class AmountForm extends CustomForm implements FormConstants {
         $this->addLabel(TF::LIGHT_PURPLE . "How many do you want?");
         $this->addSlider(TF::BLUE . "Amount", 1, $limit, self::AMOUNT);
         $this->addLabel(TF::LIGHT_PURPLE . "Where do you want it?");
-        $this->addDropdown(TF::BLUE . "Location", self::LOCATION, [TF::GOLD . "Archive", TF::GOLD . "Inventory"]);
+        $this->addDropdown(TF::BLUE . "Location", self::LOCATION, [TF::GOLD . "Archive", TF::GOLD . "Inventory"], 1);
     }
     
     /**

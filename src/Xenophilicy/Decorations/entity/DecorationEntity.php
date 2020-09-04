@@ -27,6 +27,8 @@ use Xenophilicy\Decorations\Decorations;
  */
 class DecorationEntity extends Human {
     
+    protected $gravity = 0;
+    
     const DECO_ID = "decoID";
     const OWNER = "owner";
     

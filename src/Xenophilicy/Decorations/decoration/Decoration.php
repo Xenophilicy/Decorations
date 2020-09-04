@@ -129,7 +129,6 @@ class Decoration {
         $entity->getDataPropertyManager()->setFloat(Entity::DATA_SCALE, $this->getScale());
         $entity->setSkin(new Skin("Decorations", $this->skinData[0], "", $this->model["identifier"], $this->skinData[1]));
         $entity->sendSkin();
-        $entity->setImmobile(true);
         if(!is_null($this->nametag)) $entity->setNameTag($this->nametag);
         $entity->saveNBT();
         $entity->spawnToAll();

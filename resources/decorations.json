@@ -9,7 +9,7 @@
           "identifier": "geometry.mug",
           "texture": "mug.png"
         },
-        "scale": 0.2,
+        "scale": 0.4,
         "format": "§6Coffee mug",
         "price": 20,
         "limit": 3
@@ -26,8 +26,8 @@
           "identifier": "geometry.television",
           "texture": "television.png"
         },
-        "scale": 1,
-        "format": "§0Flat Screen TV",
+        "scale": 2.1,
+        "format": "§7Flat Screen TV",
         "price": 120,
         "limit": 1,
         "nametag": "§7Watch some stuff"
@@ -39,7 +39,7 @@
           "identifier": "geometry.table",
           "texture": "table.png"
         },
-        "scale": 1,
+        "scale": 1.2,
         "format": "§cSmall table",
         "price": 65,
         "limit": 1

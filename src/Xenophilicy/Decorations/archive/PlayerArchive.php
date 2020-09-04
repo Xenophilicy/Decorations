@@ -73,7 +73,8 @@ class PlayerArchive {
     }
     
     public function getEntry(string $id): ArchiveEntry{
-        return $this->entries[$id];
+        $decoration = Decorations::getInstance()->getDecorationManager()->getDecoration($id);
+        return $this->entries[$id] ?? new ArchiveEntry($decoration, 0, 0);
     }
     
     public function getName(): string{

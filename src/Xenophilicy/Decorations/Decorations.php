@@ -84,7 +84,7 @@ class Decorations extends PluginBase {
         if(!is_dir($path)){
             mkdir($path);
             $path = $this->getDecorationDirectory(true);
-            foreach(["mug", "chair", "television"] as $model){
+            foreach(["mug", "table", "television"] as $model){
                 $this->saveResource($path . "$model.geo.json");
                 $this->saveResource($path . "$model.png");
             }
