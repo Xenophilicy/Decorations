@@ -1,12 +1,12 @@
 # Decorations
 [![Poggit Decorations](https://poggit.pmmp.io/shield.state/Decorations)](https://poggit.pmmp.io/p/Decorations)
-[![HitCount](http://hits.dwyl.com/Xenophilicy/Decorations.svg)](http://hits.dwyl.com/Xenophilicy/Decorations)
+[![HitCount](http://hits.xenoservers.net:4000/Xenophilicy/Decorations.svg)](http://hits.xenoservers.net:4000)
 [![Discord Chat](https://img.shields.io/discord/490677165289897995.svg)](https://discord.xenoservers.net)
 
 # [![Xenophilicy](https://file.xenoservers.net/Resources/GitHub-Resources/decorations/screenshot.png)]()
 
 ## Information
-With this plugin you can allow your players to purchase and spawn in custom geometry entites! Everything is configurable in the `decorations.json` config file including price, spawn limits, and entity scale!
+With this plugin you can allow your players to purchase and spawn in custom geometry entities! Everything is configurable in the `decorations.json` config file including price, spawn limits, and entity scale!
 
 ### [Click here to download Decorations from Poggit](https://poggit.pmmp.io/p/Decorations/)
 
