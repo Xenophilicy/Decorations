@@ -40,9 +40,10 @@ class ConfirmPurchaseForm extends ModalForm implements FormConstants {
         $this->amount = $amount;
         $this->location = $location;
         parent::__construct(self::TITLE, $previousForm);
+        $price = $decoration->getPrice();
         $unit = Decorations::getInstance()->getEconomy()->getMonetaryUnit();
-        $price = $decoration->getPrice() > 0 ? $decoration->getPrice() : "FREE";
-        $this->setContent(TF::YELLOW . "Please confirm you'd like to buy " . TF::AQUA . $amount . "x " . $decoration->getFormat() . TF::YELLOW . " for " . TF::DARK_GREEN . $unit . $price);
+        $price = $unit . $price > 0 ? $price : "FREE";
+        $this->setContent(TF::YELLOW . "Please confirm you'd like to buy " . TF::AQUA . $amount . "x " . $decoration->getFormat() . TF::YELLOW . " for " . TF::DARK_GREEN . $price);
         $this->setButton1(TF::GREEN . "Confirm");
         $this->setButton2(TF::RED . "Back");
     }

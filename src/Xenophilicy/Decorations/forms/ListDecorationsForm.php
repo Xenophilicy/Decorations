@@ -37,8 +37,9 @@ class ListDecorationsForm extends SimpleForm implements FormConstants {
         $this->setContent(TF::LIGHT_PURPLE . "Select a decoration to view");
         foreach($category->getAllDecorations() as $id => $decoration){
             $unit = Decorations::getInstance()->getEconomy()->getMonetaryUnit();
-            $price = $decoration->getPrice() > 0 ? $decoration->getPrice() : "FREE";
-            $this->addButton(TF::DARK_AQUA . $decoration->getFormat() . TF::GRAY . " | " . TF::DARK_GREEN . $unit . $price, $id);
+            $price = $decoration->getPrice();
+            $price = $unit . $price > 0 ? $price : "FREE";
+            $this->addButton(TF::DARK_AQUA . $decoration->getFormat() . TF::GRAY . " | " . TF::DARK_GREEN . $price, $id);
         }
         $this->addButton(self::BACK_TEXT, self::BACK);
     }

@@ -90,7 +90,7 @@ class EventListener implements Listener {
         if(!$entity instanceof DecorationEntity) return;
         $event->setCancelled();
         if(!$damager instanceof Player) return;
-        if($entity->getOwner() !== $damager->getName()) return;
+        if($entity->getOwner() !== $damager->getName() && !$damager->hasPermission("decorations.override")) return;
         $decoration = $entity->getDecoration();
         $form = new SettingsForm($decoration, null, $entity);
         $damager->sendForm($form);

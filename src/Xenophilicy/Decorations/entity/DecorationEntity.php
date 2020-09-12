@@ -29,9 +29,9 @@ class DecorationEntity extends Human {
     
     const DECO_ID = "decoID";
     const OWNER = "owner";
-    protected $gravity = 0;
-    public $height = 0;
+    public $height = 1;
     public $width = 0;
+    protected $gravity = 0;
     
     public function __construct(Level $level, CompoundTag $nbt){
         parent::__construct($level, $nbt);
