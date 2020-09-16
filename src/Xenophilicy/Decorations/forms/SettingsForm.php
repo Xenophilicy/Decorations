@@ -43,6 +43,7 @@ class SettingsForm extends SimpleForm implements FormConstants {
         }else{
             $this->addButton(TF::GREEN . "Pick up", self::PICKUP);
             $this->addButton(TF::GOLD . "Archive", self::ARCHIVE);
+            $this->addButton(TF::BLUE . "Edit", self::EDIT);
         }
         $this->addButton(TF::YELLOW . "Sell", self::SELL);
         $button = is_null($previousForm) ? self::CLOSE_TEXT : self::BACK_TEXT;
@@ -61,16 +62,19 @@ class SettingsForm extends SimpleForm implements FormConstants {
                 $entry = Decorations::getInstance()->getArchiveManager()->getArchive($player->getName())->getEntry($this->decoration->getId());
                 $form = new RemoveFromArchiveForm($entry, new MainForm());
                 break;
+            case self::EDIT:
+                $form = new EditForm($this->decoration, $this->entity, $this);
+                break;
             case self::ARCHIVE:
                 $this->entity->flagForDespawn();
-                Decorations::getInstance()->getArchiveManager()->getArchive($player->getName())->removeSpawned($this->decoration->getId(), 1);
+                Decorations::getInstance()->getArchiveManager()->getArchive($this->entity->getOwner())->removeSpawned($this->decoration->getId(), 1);
                 Decorations::getInstance()->getArchiveManager()->getArchive($player->getName())->addStored($this->decoration->getId(), 1);
                 $form = new AlertForm(TF::GREEN . "Decoration has been added to your archive");
                 break;
             case self::PICKUP:
                 $this->entity->flagForDespawn();
                 $item = $this->decoration->convertToItem(1);
-                Decorations::getInstance()->getArchiveManager()->getArchive($player->getName())->removeSpawned($this->decoration->getId(), 1);
+                Decorations::getInstance()->getArchiveManager()->getArchive($this->entity->getOwner())->removeSpawned($this->decoration->getId(), 1);
                 $player->getInventory()->canAddItem($item) ? $player->getInventory()->addItem($item) : $player->dropItem($item);
                 $form = new AlertForm(TF::GREEN . "Decoration has been moved to your inventory");
                 break;
@@ -82,7 +86,7 @@ class SettingsForm extends SimpleForm implements FormConstants {
                     Decorations::getInstance()->getArchiveManager()->getArchive($player->getName())->removeStored($this->decoration->getId(), 1);
                 }else{
                     $this->entity->flagForDespawn();
-                    Decorations::getInstance()->getArchiveManager()->getArchive($player->getName())->removeSpawned($this->decoration->getId(), 1);
+                    Decorations::getInstance()->getArchiveManager()->getArchive($this->entity->getOwner())->removeSpawned($this->decoration->getId(), 1);
                 }
                 $unit = Decorations::getInstance()->getEconomy()->getMonetaryUnit();
                 $form = new AlertForm(TF::YELLOW . "Decoration has been sold for " . TF::DARK_GREEN . ($unit . $price > 0 ? $price : "FREE"));

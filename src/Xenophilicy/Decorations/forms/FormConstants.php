@@ -40,4 +40,11 @@ interface FormConstants {
     const SELL = "sell";
     const SPAWN = "spawn";
     const PICKUP = "pickup";
+    const EDIT = "edit";
+    
+    const YAW = "yaw";
+    const PITCH = "pitch";
+    const X = "x";
+    const Y = "y";
+    const Z = "z";
 }
