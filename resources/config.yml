@@ -11,7 +11,7 @@
 #                                         $$ |                                      /  \__$$ |
 #                                         $$ |                                      $$    $$/
 #                                         $$/                                        $$$$$$/
-VERSION: "1.0.0" # Internal use only
+VERSION: "1.1.0" # Internal use only
 
 # This is the percent of the original price a player should get back when selling a decoration
 # Set this to 0 for no money back
@@ -19,3 +19,13 @@ sell-percentage: 50
 
 # Show or hide the shop in the decoration menu
 enable-shop: true
+
+# This is the item that represents a decoration in the player's inventory
+# The default is a white bed
+item:
+  id: 355
+  damage: 0
+  # Set the item's lore (text under name)
+  lore: "§3Tap the ground to place me"
+  # Choose whether the item should have an enchant glint
+  enchantment: true

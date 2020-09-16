@@ -22,7 +22,6 @@ use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\enchantment\EnchantmentInstance;
 use pocketmine\item\Item;
 use pocketmine\Player;
-use pocketmine\utils\TextFormat as TF;
 use Xenophilicy\Decorations\Decorations;
 use Xenophilicy\Decorations\entity\DecorationEntity;
 
@@ -50,16 +49,22 @@ class Decoration {
     private $nametag;
     /** @var int|null */
     private $limit;
+    /** @var array|null */
+    private $rotation;
+    /** @var array|null */
+    private $range;
     
-    public function __construct(DecorationCategory $category, string $id, array $model, float $scale, string $format, int $price, ?int $limit, string $nametag = null){
+    public function __construct(DecorationCategory $category, string $id, array $datum){
         $this->category = $category;
-        $this->id = $id;
-        $this->model = $model;
-        $this->scale = $scale;
-        $this->format = $format;
-        $this->price = $price;
-        $this->limit = $limit;
-        $this->nametag = $nametag;
+        $this->id = $datum["id"] ?? null;
+        $this->model = $datum["model"] ?? [];
+        $this->scale = $datum["scale"] ?? 1;
+        $this->format = $datum["format"] ?? $id;
+        $this->price = $datum["price"] ?? 0;
+        $this->limit = $datum["limit"] ?? null;
+        $this->nametag = $datum["nametag"] ?? null;
+        $this->rotation = $datum["rotation"] ?? [];
+        $this->range = $datum["scale-range"] ?? null;
     }
     
     public function getPlayerLimit(): ?int{
@@ -72,6 +77,10 @@ class Decoration {
     
     public function getPrice(): int{
         return $this->price;
+    }
+    
+    public function getScaleRange(): ?array{
+        return $this->range;
     }
     
     public function buildImage(): bool{
@@ -98,11 +107,11 @@ class Decoration {
     }
     
     public function convertToItem(int $amount): Item{
-        $item = Item::get(Item::BED, 0, $amount);
+        $item = Item::get(Decorations::$settings["item"]["id"], Decorations::$settings["item"]["damage"], $amount);
         $item->setCustomName($this->getFormat());
+        $item->setLore([Decorations::$settings["item"]["lore"]]);
         $enchant = new EnchantmentInstance(new Enchantment(105, "Decoration", 0, 0, 0, 1), 1);
-        $item->setLore([TF::AQUA . "Tap the ground to place me"]);
-        $item->addEnchantment($enchant);
+        if(Decorations::$settings["item"]["enchantment"]) $item->addEnchantment($enchant);
         $item->getNamedTag()->setString(DecorationEntity::DECO_ID, $this->getId());
         return $item;
     }
@@ -117,7 +126,7 @@ class Decoration {
     
     public function spawn(Player $player, Block $block): ?Entity{
         Decorations::getInstance()->getArchiveManager()->getArchive($player->getName())->addSpawned($this->getId(), 1);
-        $nbt = Entity::createBaseNBT($block->ceil()->add(.5, 1, .5));
+        $nbt = Entity::createBaseNBT($block->ceil()->add(.5, 1, .5), null, $this->getYaw() ?? 0, $this->getPitch() ?? 0);
         $nbt->setString(DecorationEntity::DECO_ID, $this->getId());
         $nbt->setString(DecorationEntity::OWNER, $player->getName());
         $player->saveNBT();
@@ -134,6 +143,14 @@ class Decoration {
         $entity->spawnToAll();
         $entity->sendData($entity->getViewers());
         return $entity;
+    }
+    
+    public function getYaw(): ?int{
+        return $this->rotation["yaw"] ?? null;
+    }
+    
+    public function getPitch(): ?int{
+        return $this->rotation["pitch"] ?? null;
     }
     
     public function getScale(): float{

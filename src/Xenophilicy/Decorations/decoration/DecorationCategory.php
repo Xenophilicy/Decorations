@@ -36,17 +36,13 @@ class DecorationCategory {
         foreach($data["entities"] as $datum){
             $id = $datum["id"] ?? null;
             $model = $datum["model"] ?? [];
-            $scale = $datum["scale"] ?? 1;
-            $format = $datum["format"] ?? $id;
-            $price = $datum["price"] ?? 0;
             $limit = $datum["limit"] ?? null;
-            $nametag = $datum["nametag"] ?? null;
             if(is_null($id) || count($model) !== 3 || (!is_null($limit) && $limit < 1)){
                 $id = is_null($id) ? "no ID" : $id;
                 Decorations::getInstance()->getLogger()->critical("Decoration $id has invalid values");
                 continue;
             }
-            $decoration = new Decoration($this, $id, $model, $scale, $format, $price, $limit, $nametag);
+            $decoration = new Decoration($this, $id, $datum);
             if(!$decoration->buildImage()){
                 Decorations::getInstance()->getLogger()->critical("Decoration $id has invalid or missing geometry data");
                 continue;

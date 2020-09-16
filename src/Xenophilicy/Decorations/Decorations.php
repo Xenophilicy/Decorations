@@ -29,7 +29,7 @@ use Xenophilicy\Decorations\entity\DecorationEntity;
  */
 class Decorations extends PluginBase {
     
-    const CONFIG_VERSION = "1.0.0";
+    const CONFIG_VERSION = "1.1.0";
     
     /** @var array */
     public static $settings;
@@ -63,10 +63,12 @@ class Decorations extends PluginBase {
     }
     
     public function onDisable(){
-        $this->getArchiveManager()->saveData();
+        $archive = $this->getArchiveManager();
+        if(is_null($archive)) return;
+        $archive->saveData();
     }
     
-    public function getArchiveManager(): ArchiveManager{
+    public function getArchiveManager(): ?ArchiveManager{
         return $this->archiveManager;
     }
     

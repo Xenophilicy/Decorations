@@ -15,6 +15,7 @@
 
 namespace Xenophilicy\Decorations\forms;
 
+use pocketmine\entity\Entity;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat as TF;
 use Xenophilicy\Decorations\decoration\Decoration;
@@ -34,6 +35,8 @@ class EditForm extends CustomForm implements FormConstants {
     private $entity;
     /** @var array */
     private $steps = [self::X => [], self::Y => [], self::Z => []];
+    /** @var array */
+    private $scale = [];
     
     public function __construct(Decoration $decoration, DecorationEntity $entity, Form $previousForm){
         $this->decoration = $decoration;
@@ -49,6 +52,11 @@ class EditForm extends CustomForm implements FormConstants {
         $this->addStepSlider(TF::GOLD . "X", self::X, $this->steps[self::X], array_search($entity->getX(), $this->steps[self::X]));
         $this->addStepSlider(TF::GOLD . "Y", self::Y, $this->steps[self::Y], array_search($entity->getY(), $this->steps[self::Y]));
         $this->addStepSlider(TF::GOLD . "Z", self::Z, $this->steps[self::Z], array_search($entity->getZ(), $this->steps[self::Z]));
+        $range = $this->decoration->getScaleRange();
+        if(!is_null($range)){
+            for($i = $range["min"]; $i < $range["max"]; $i += 0.1) array_push($this->scale, (string)($i));
+            $this->addStepSlider(TF::GOLD . "Scale", self::SCALE, $this->scale, array_search($entity->getScale(), $this->scale));
+        }
     }
     
     /**
@@ -63,6 +71,7 @@ class EditForm extends CustomForm implements FormConstants {
         $this->entity->x = (float)($this->steps[self::X][$data[self::X]]);
         $this->entity->y = (float)($this->steps[self::Y][$data[self::Y]]);
         $this->entity->z = (float)($this->steps[self::Z][$data[self::Z]]);
+        if(!is_null($this->decoration->getScaleRange())) $this->entity->getDataPropertyManager()->setFloat(Entity::DATA_SCALE, $this->scale[$data[self::SCALE]]);
         $form = new AlertForm(TF::GREEN . "Your options have been saved", $this->getPreviousForm());
         $player->sendForm($form);
     }

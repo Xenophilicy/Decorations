@@ -47,4 +47,5 @@ interface FormConstants {
     const X = "x";
     const Y = "y";
     const Z = "z";
+    const SCALE = "scale";
 }

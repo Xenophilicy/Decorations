@@ -62,9 +62,25 @@ Entity texture
 "texture": "mug.png"
 ```
 
+Entity rotation
+```json
+"rotation": {
+  "yaw": 30,
+  "pitch": 0
+},
+```
+
 Entity size
 ```json
 "scale": 0.4,
+```
+
+Allowed size
+```json
+"scale-range": {
+  "min": 0.1,
+  "max": 2
+},
 ```
 
 Entry format
@@ -100,7 +116,9 @@ The following table is used to determine a key's optionality.
 |   File name   |   required  |     -     |
 |   Identifier  |   required  |     -     |
 |    Texture    |   requried  |     -     |
+|    Rotation   |   optional  |  Player's |
 |      Size     |   optional  |     1     |
+|  Allowed size |   optional  |    None   |
 |     Format    |   optional  |  Entry ID |
 |     Price     |   optional  |  Free (0) |
 |     Limit     |   optional  | Unlimited |
@@ -108,7 +126,7 @@ The following table is used to determine a key's optionality.
 
 ***
 
-In the end your JSON entry will look something like this:
+In the end, your JSON entry will look something like this:
 ```json
 {
   "dishes": {
@@ -121,7 +139,15 @@ In the end your JSON entry will look something like this:
           "identifier": "geometry.mug",
           "texture": "mug.png"
         },
+        "rotation": {
+          "yaw": 30,
+          "pitch": 0
+        },
         "scale": 0.4,
+        "scale-range": {
+          "min": 0.1,
+          "max": 2
+        },
         "format": "§6Coffee mug",
         "price": 20,
         "limit": 3,
@@ -138,15 +164,15 @@ In the end your JSON entry will look something like this:
 These are things that are planned or in-progress
 - [ ] Fine tuning
     - [X] Add yaw/pitch control using the Deco UI
-    - [ ] Add default rotation to configuration
+    - [X] Add default rotation to configuration
     - [ ] Allow for live yaw and pitch control using player attachment
     - [X] Enable vector tuning using the Deco UI (XYZ)
-    - [ ] Add a scale range in the configuration to allow players to customize entity size
+    - [X] Add a scale range in the configuration to allow players to customize entity size
 - [ ] Glitches
     - [ ] Fix issues with owner spawning in models
 - [ ] Allow commands to be executed when interacting with foreign decorations
 - [ ] UXP
-    - [X] Catch erros thrown by removed deocorations (from the decorations.json file)
+    - [X] Catch errors thrown by removed deocorations (from the decorations.json file)
     - [ ] Allow deocrations to be mass despawned for moderation (by type, ID, owner, etc.)
 
 ## Credits

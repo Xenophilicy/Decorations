@@ -45,6 +45,11 @@ class PlayerArchive {
     }
     
     public function removeStored(string $id, int $amount): void{
+        if(!isset($this->entries[$id])){
+            $decoration = Decorations::getInstance()->getDecorationManager()->getDecoration($id);
+            $this->entries[$id] = new ArchiveEntry($decoration, 0, 0);
+            return;
+        }
         $this->entries[$id]->setStored($this->entries[$id]->getStored() - $amount);
     }
     
@@ -55,6 +60,11 @@ class PlayerArchive {
     }
     
     public function removeSpawned(string $id, int $amount): void{
+        if(!isset($this->entries[$id])){
+            $decoration = Decorations::getInstance()->getDecorationManager()->getDecoration($id);
+            $this->entries[$id] = new ArchiveEntry($decoration, 0, 0);
+            return;
+        }
         $this->entries[$id]->setSpawned($this->entries[$id]->getSpawned() - $amount);
     }
     
