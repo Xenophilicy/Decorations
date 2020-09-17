@@ -89,7 +89,7 @@ class SettingsForm extends SimpleForm implements FormConstants {
                     Decorations::getInstance()->getArchiveManager()->getArchive($this->entity->getOwner())->removeSpawned($this->decoration->getId(), 1);
                 }
                 $unit = Decorations::getInstance()->getEconomy()->getMonetaryUnit();
-                $form = new AlertForm(TF::YELLOW . "Decoration has been sold for " . TF::DARK_GREEN . ($unit . $price > 0 ? $price : "FREE"));
+                $form = new AlertForm(TF::YELLOW . "Decoration has been sold for " . TF::DARK_GREEN . ($unit . ($price > 0 ? $price : "FREE")));
                 break;
             default:
                 if(is_null($this->getPreviousForm())) return;
