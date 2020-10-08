@@ -3,7 +3,7 @@
 [![HitCount](http://hits.xenoservers.net:4000/Xenophilicy/Decorations.svg)](http://hits.xenoservers.net:4000)
 [![Discord Chat](https://img.shields.io/discord/490677165289897995.svg)](https://discord.xenoservers.net)
 
-# [![Xenophilicy](https://file.xenoservers.net/Resources/GitHub-Resources/decorations/screenshot.png)]()
+# [![Xenophilicy](http://file.xenoservers.net/Resources/GitHub-Resources/decorations/screenshot.png)]()
 
 ## Information
 With this plugin you can allow your players to purchase and spawn in custom geometry entities using the Decorations shop UI! Everything is configurable in the `decorations.json` config file including price, spawn limits, entity scale, and more!
