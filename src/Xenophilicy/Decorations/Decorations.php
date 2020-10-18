@@ -18,6 +18,7 @@ namespace Xenophilicy\Decorations;
 use onebone\economyapi\EconomyAPI;
 use pocketmine\entity\Entity;
 use pocketmine\plugin\PluginBase;
+use pocketmine\scheduler\ClosureTask;
 use Xenophilicy\Decorations\archive\ArchiveManager;
 use Xenophilicy\Decorations\commands\DecorationCommand;
 use Xenophilicy\Decorations\decoration\DecorationManager;
@@ -54,7 +55,7 @@ class Decorations extends PluginBase {
         return self::$instance;
     }
     
-    public function getEconomy(): EconomyAPI{
+    public function getEconomy(): ?EconomyAPI{
         return $this->economy;
     }
     
@@ -94,9 +95,13 @@ class Decorations extends PluginBase {
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
         $this->getServer()->getInstance()->getCommandMap()->register("Decorations", new DecorationCommand());
         Entity::registerEntity(DecorationEntity::class, true, ["Decoration"]);
-        $this->economy = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
         $this->decorationManager = new DecorationManager();
         $this->archiveManager = new ArchiveManager();
+        $this->getScheduler()->scheduleDelayedTask(new ClosureTask(function(int $currentTick): void{
+            $this->economy = $this->getServer()->getPluginManager()->getPlugin("EconomyAPI");
+            if(!is_null($this->economy)) return;
+            $this->getLogger()->notice("EconomyAPI is not installed, so prices will revert to FREE");
+        }), 1);
     }
     
     public function getDecorationDirectory(bool $internal): string{
