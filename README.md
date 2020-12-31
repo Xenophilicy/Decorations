@@ -1,3 +1,5 @@
+> # I have frozen my personal support for public plugins. The plugins will remain public on GitHub (though archived) for anyone that would like to keep them updated.  This my final decision on the matter. No support will be provided - you will be ignored - regardless of private or public inquiry.
+
 # Decorations
 [![Poggit Decorations](https://poggit.pmmp.io/shield.state/Decorations)](https://poggit.pmmp.io/p/Decorations)
 [![HitCount](http://hits.xenoservers.net:4000/Xenophilicy/Decorations.svg)](http://hits.xenoservers.net:4000)
